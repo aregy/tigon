@@ -1,0 +1,23 @@
+* Goal
+Input: 1234
+# In bits this would be 0000 0000 0000 0000 0000 0100 1101 0010
+Output: 1260388352
+# Reversed bits is 0100 1011 0010 0000 0000 0000 0000 0000
+
+** Behavior
+fmt.Println(toBits(1234))
+# 10011010010
+fnt.Println(reverseNumBits(1234))
+# 1260388352
+fmt.Println(toBnits(reverseNumBits(1234)))
+# 1001011001000000000000000000000
+
+* Implementation Details
+#+begin_src go
+func toBits(n int) string {
+	// '{0:08b}'.format(n)
+}
+func reverseNumBits(n int) string {
+	//..
+}
+#+end_src
