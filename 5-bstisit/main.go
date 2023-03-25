@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strings"
 )
 
@@ -13,17 +14,34 @@ type Node struct {
 
 func (node *Node) String() string {
 	if node == nil {
-		return ""
+		return "-"
 	}
-	depth := getDepth(node, 0)
-	var repr string
-	repr += strings.Repeat("  ", depth)
-	repr += fmt.Sprint(node.Val)
-	repr += "\n"
-	repr += leftRightConcat(node.Left.String(), node.Right.String())
-	return repr
+	return node.StringHelper(getDepth(node, 0))
 }
 
+func (node *Node) StringHelper(n int) string {
+	if node == nil {
+		return " "
+	}
+	var repr string
+	repr += strings.Repeat("  ", min(int(math.Exp2(float64(n))), 25*n/10))
+	repr += fmt.Sprint(node.Val)
+	repr += "\n"
+	repr += leftRightConcat(node.Left.StringHelper(n-1), node.Right.StringHelper(n-1))
+	return repr
+}
+func min(n ...int) int {
+	if len(n) == 0 {
+		panic("Max entry not present in empty set")
+	}
+	min := n[0]
+	for i, _ := range n {
+		if n[i] < min {
+			min = n[i]
+		}
+	}
+	return min
+}
 func max(n ...int) int {
 	if len(n) == 0 {
 		panic("Max entry not present in empty set")
@@ -46,7 +64,7 @@ func leftRightConcat(left, right string) string {
 			result[i] += leftEntries[i]
 		}
 		if i < len(leftEntries) && i < len(rightEntries) {
-			result[i] += " "
+			result[i] += "  "
 		}
 		if i < len(rightEntries) {
 			result[i] += rightEntries[i]
@@ -71,7 +89,7 @@ func getDepth(node *Node, level int) int {
 }
 
 func main() {
-	var t Node = Node{1, &Node{11, nil, nil}, &Node{22, &Node{333, nil, nil}, &Node{444, nil, nil}}}
+	var t Node = Node{1, &Node{11, &Node{22, &Node{333, nil, nil}, &Node{444, nil, nil}}, nil}, &Node{33, &Node{444, nil, nil}, &Node{444, nil, nil}}}
 	fmt.Println(&t)
 	fmt.Println(getDepth(&t, 0))
 }
