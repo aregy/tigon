@@ -6,11 +6,13 @@ import (
 	"strconv"
 )
 
-func TwoSum(target int, nums []int) (int, int) {
-	complement := make([]int, len(nums))
-	copy(complement, nums)
-	for i := 0; i < len(complement); i++ {
-		complement[i] = -nums[i] + target
+// If allocation and retrieval performance of the map is O(log(n)), this
+// solution is bounded by O(n*log(n))
+func TwoSum(target int, nums []int) []int {
+	complements := make([]int, len(nums))
+	copy(complements, nums)
+	for i := 0; i < len(complements); i++ {
+		complements[i] = -nums[i] + target
 	}
 	vals := make(map[int]int, len(nums))
 
@@ -19,12 +21,12 @@ func TwoSum(target int, nums []int) (int, int) {
 		if _, ok := vals[cv]; !ok {
 			vals[v] = i
 		} else if i > vals[cv] {
-				return vals[cv], i
+			return []int {vals[cv], i}
 			}	else if vals[cv] >= i {
-			return i, vals[cv]
+			return []int{i, vals[cv]}
 		}
 	}
-	return 0, len(complement) -1
+	return nil
 }
 func parseList(args []string) []int{
 	nums := make([]int, len(args))
