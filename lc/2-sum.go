@@ -9,7 +9,21 @@ import (
 func TwoSum(target int, nums []int) (int, int) {
 	complement := make([]int, len(nums))
 	copy(complement, nums)
-	fmt.Println(complement)
+	for i := 0; i < len(complement); i++ {
+		complement[i] = -nums[i] + target
+	}
+	vals := make(map[int]int, len(nums))
+
+	for i, v := range nums {
+		cv := target - v
+		if _, ok := vals[cv]; !ok {
+			vals[v] = i
+		} else if i > vals[cv] {
+				return vals[cv], i
+			}	else if vals[cv] >= i {
+			return i, vals[cv]
+		}
+	}
 	return 0, len(complement) -1
 }
 func parseList(args []string) []int{
@@ -40,5 +54,5 @@ func main(){
 	if !isValidInput(nums) {
 		panic(fmt.Errorf("%d is not a valid target", nums[0]))
 	}
-	TwoSum(nums[0], nums[1:])
+	fmt.Println(TwoSum(nums[0], nums[1:]))
 }
