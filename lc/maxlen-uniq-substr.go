@@ -30,7 +30,7 @@ func uniqSequence(s string) int {
 }
 
 func display(s string) {
-	fmt.Printf("The lonagest substring of unique characters within '%s' is of length %d\n", s, lengthOfLongestSubstring(s))
+	fmt.Printf("The longest substring of unique characters within '%s' is of length %d\n", s, lengthOfLongestSubstring(s))
 }
 
 func main() {
