@@ -13,16 +13,19 @@ func CheckHeap(n []int) {
 }
 func hfied(n []int, head int) {
 	m := head
-	if len(n) > head+1 && n[m] > n[head+1] {
-		m = head + 1
+	if len(n) > 2*head+1 && n[m] > n[2*head+1] {
+		m = 2*head + 1
 	}
-	if len(n) > head+2 && n[m] > n[head+2] {
-		m = head + 2
+	if len(n) > 2*head+2 && n[m] > n[2*head+2] {
+		m = 2*head + 2
 	}
 	if m != head {
 		panic(fmt.Errorf("Not heapified because %d > %d in %#v", n[head], n[m], n))
 	}
 	if head != 0 {
+		if n[head] == 94 {
+			fmt.Printf("%d: %#v\n", head, n)
+		}
 		hfied(n, (head-1)/2)
 	}
 }
@@ -65,7 +68,7 @@ func getNums() []int {
 func main() {
 	n := getNums()
 	fmt.Println(n)
-	Hsort(n)
+	//Hsort(n)
 	CheckHeap(n)
 	fmt.Println(n)
 }
