@@ -1,47 +1,71 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"strconv"
+)
 
-func Hsort2(n []int) {
-	if len(n) == 0 {
-		return
+func CheckHeap(n []int) {
+	for i := len(n) - 1; i > len(n)/2-1; i-- {
+		hfied(n, i)
 	}
-	Hsort(n[1:])
-
-	for i := 0; i < len(n); i++ {
-		heap(n[:i+1])
+}
+func hfied(n []int, head int) {
+	m := head
+	if len(n) > head+1 && n[m] > n[head+1] {
+		m = head + 1
 	}
-
+	if len(n) > head+2 && n[m] > n[head+2] {
+		m = head + 2
+	}
+	if m != head {
+		panic(fmt.Errorf("Not heapified because %d > %d in %#v", n[head], n[m], n))
+	}
+	if head != 0 {
+		hfied(n, (head-1)/2)
+	}
 }
 func Hsort(n []int) {
 	if len(n) == 0 {
 		return
 	}
-	for i := 0; i < len(n); i++ {
-		heap(n[:i+1])
+	for i := len(n) - 1; i > len(n)/2-1; i-- {
+		rtBubble(n[:i+1])
 	}
 	Hsort(n[1:])
 }
-func heap(n []int) {
+func rtBubble(n []int) {
 	rt := len(n) - 1
-	for {
+	for rt != 0 {
 		p := (rt - 1) / 2
 		if rt == p {
 			break
 		}
 		if n[p] > n[rt] {
-			fmt.Printf("%d <- %d\n", n[p], n[rt])
 			n[p], n[rt] = n[rt], n[p]
-		} else {
-			break
 		}
 		rt = p
 	}
 }
 
+func getNums() []int {
+	s := os.Args[1:]
+	n := make([]int, len(s))
+	for i, v := range s {
+		var err error
+		n[i], err = strconv.Atoi(v)
+		if err != nil {
+			panic(err)
+		}
+	}
+	return n
+}
+
 func main() {
-	n := []int{5, 1, 2, 9, 3, 9, 4}
+	n := getNums()
 	fmt.Println(n)
 	Hsort(n)
+	CheckHeap(n)
 	fmt.Println(n)
 }
