@@ -23,9 +23,6 @@ func hfied(n []int, head int) {
 		panic(fmt.Errorf("Not heapified because %d > %d in %#v", n[head], n[m], n))
 	}
 	if head != 0 {
-		if n[head] == 94 {
-			fmt.Printf("%d: %#v\n", head, n)
-		}
 		hfied(n, (head-1)/2)
 	}
 }
