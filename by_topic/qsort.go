@@ -10,19 +10,15 @@ func partition(nums []int, l int, r int) {
 	index := l - 1
 	for i := l; i < r; i++ {
 		if nums[i] < pivot {
-			fmt.Println(nums)
 			nums[index+1], nums[i] = nums[i], nums[index+1]
 			index++
 		}
 	}
 	nums[index+1], nums[r] = nums[r], nums[index+1]
 	index++
-	//if index-1 > l {
+
 	partition(nums, l, index-1)
-	//}
-	//if index+1 <= r {
 	partition(nums, index+1, r)
-	//}
 }
 
 func qsort(nums []int) {
