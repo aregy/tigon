@@ -14,7 +14,7 @@ func (node *Node) String() string {
 	return fmt.Sprintln(node.Val)
 }
 
-func GetNums(n int, k int) {
+func GetNums(n int, k int) *Node {
 	index := 0
 	initFn := func(node *Node) {
 		node.Val = index + 1
@@ -23,7 +23,7 @@ func GetNums(n int, k int) {
 	first := &Node{}
 	current := first
 	for i := 0; ; i++ {
-		current.Val = i + 1
+		initFn(current)
 		if i == n-1 {
 			break
 		}
@@ -32,12 +32,27 @@ func GetNums(n int, k int) {
 	}
 	return first
 }
-func Reverso(n *Node) {
-	// TODO
+func Reversed(n *Node) *Node {
+
+	var prev *Node = nil
+	next := n.Next
+	if next == nil {
+		return n
+	}
+	for {
+		next = n.Next
+		n.Next = prev
+		if next == nil {
+			break
+		}
+		prev = n
+		n = next
+	}
+	return n
 }
 func main() {
 	nums := GetNums(10, 1)
 	fmt.Println(nums)
-	Reverso(nums)
+	nums = Reversed(nums)
 	fmt.Println(nums)
 }
