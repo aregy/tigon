@@ -9,7 +9,7 @@ var CheckWS = map[rune]struct{}{
 }
 
 func ReverseWords(src string) string {
-	res := []byte(src)
+	res := []rune(src)
 	bounds := make(map[int]int, len(src)/5)
 
 	r := -1
@@ -17,7 +17,7 @@ func ReverseWords(src string) string {
 	p := -1
 	for i, letter := range src {
 		if p != -1 && i-p > 1 {
-			fmt.Printf(":%s\n", string(src[p:i+1]))
+			fmt.Printf(":%s\n", src[p:i])
 		}
 		if r-l > 0 {
 			bounds[l+1] = r
@@ -39,7 +39,9 @@ func ReverseWords(src string) string {
 	for l, r := 0, len(res)-1; l <= r; l, r = l+1, r-1 {
 		res[l], res[r] = res[r], res[l]
 	}
-	return fmt.Sprintf("%s", res)
+	var s string = string(res)
+	return s
+	//return fmt.Sprintf("%s", res)
 }
 
 func main() {
