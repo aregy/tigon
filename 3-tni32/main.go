@@ -1,25 +1,53 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func BitString(n int) string {
-	var repr string = ""
-	neg := false
+	repr := []string{}
+	isNeg := false
+	pos, neg := func() (string, string) { return "1", "0" }()
 	if n < 0 {
-		neg = true
+		isNeg = true
+		n *= -1
+		n -= 1
+		pos = "0"
+		neg = "1"
 	}
 	for n != 0 {
-		repr = fmt.Sprintf("%s%s", string(n%2), repr)
-		n >>= 2
+		if n%2 == 0 {
+			repr = append([]string{neg}, repr...)
+		} else {
+			repr = append([]string{pos}, repr...)
+		}
+		n >>= 1
 	}
-	if neg {
-		return fmt.Sprintf("%s%s", "1", repr)
+	if isNeg {
+		repr = append([]string{"1"}, repr...)
+	} else {
+		repr = append([]string{"0"}, repr...)
 	}
-	return fmt.Sprintf("%s%S", "0", repr)
+	return strings.Join(repr, "")
 }
 
+// TODO
 func ReverseBits(n int) int {
-	return 0
+	u := uint(n)
+	res := 0
+	if n < 0 {
+		res += 1
+	}
+	res <<= 1
+	for u > 0 {
+		if res%2 == 0 {
+			res += 1
+		}
+		res <<= 1
+		u >>= 1
+	}
+	return int(res)
 }
 
 func main() {
