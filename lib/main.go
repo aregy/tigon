@@ -1,4 +1,4 @@
-package main
+package lib
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 
 const origin = 1329 - 1 // immediately preceding the Ա rune
 
-func base36Digits(x int) string {
+func Base36Digits(x int) string {
 	var numerals string
 	for x > 0 {
 		if r := x % 36; r == 0 {
@@ -37,7 +37,7 @@ func traditionalNumerals(x int) string {
 	return numerals
 }
 
-func main() {
+func TestBase36Digits() {
 	for {
 		var uInput string
 		fmt.Print(": ")
@@ -46,7 +46,7 @@ func main() {
 			fmt.Errorf("%s is not integer-convertible\n", uInput)
 		} else {
 			fmt.Printf("%s in traditional\n", traditionalNumerals(x))
-			fmt.Printf("%s (base-36)\n", base36Digits(x))
+			fmt.Printf("%s (base-36)\n", Base36Digits(x))
 		}
 		fmt.Println()
 	}
