@@ -1,0 +1,17 @@
+Given a list of integers where len(nums) < 10**5 give the max pairwise product
+n
+# Sample input 1
+5
+3 4 5 1 2
+
+# Expected 1
+20
+
+# Sample input 2
+4
+2 -2 -8 3
+
+# Expected 2
+16
+
+~0(n)
