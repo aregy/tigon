@@ -14,5 +14,5 @@ n
 ** Expected (B)
 16
 
-~0(n)
+~O(n)
 ~solved in: go cpp python
