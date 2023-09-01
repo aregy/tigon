@@ -1,12 +1,24 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strconv"
 )
 
 func main() {
-	list := []int{900000, 10000}
-	fmt.Println(maxProduct(list))
+	scanner := bufio.NewScanner(os.Stdin)
+	nums := make([]int, 0, 1)
+	for scanner.Scan() {
+		n, err := strconv.Atoi(scanner.Text())
+		if err != nil {
+			break
+		}
+		nums = append(nums, n)
+	}
+	fmt.Printf("Given %v\n", nums)
+	fmt.Println(maxProduct(nums))
 }
 
 func maxProduct(nums []int) int {
@@ -32,8 +44,8 @@ func maxProduct(nums []int) int {
 			min2 = el
 		}
 	}
-	p1, p2 := max * max2, min * min2
-	if p1 > p2{
+	p1, p2 := max*max2, min*min2
+	if p1 > p2 {
 		return p1
 	}
 	return p2
