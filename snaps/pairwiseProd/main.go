@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 )
+const green string = "\033[1;34m%s\033[0m"
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
@@ -17,8 +18,9 @@ func main() {
 		}
 		nums = append(nums, n)
 	}
-	fmt.Printf("Given %v\n", nums)
-	fmt.Println(maxProduct(nums))
+	fmt.Println("Given", nums)
+	fmt.Printf(green, strconv.Itoa(maxProduct(nums)))
+	fmt.Println()
 }
 
 func maxProduct(nums []int) int {
