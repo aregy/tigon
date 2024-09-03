@@ -2,11 +2,12 @@
 
 #include <cxxabi.h>
 #include <iostream>
+#include <string>
 #include <type_traits>
 #include <typeinfo>
 #include <utility>
 
-#define _T(expr)                                                               \
+#define _ArY_type(expr)                                                        \
   do {                                                                         \
     using Type = std::remove_reference<decltype(expr)>;                        \
     bool isVolatile = std::is_volatile<Type>::value;                           \
@@ -32,3 +33,17 @@
     std::cout << ")\n";                                                        \
     free(demangle);                                                            \
   } while (0)
+namespace ArY {
+
+template <typename T> struct repr {
+  static std::string to_string();
+};
+} // namespace ArY
+template <typename T> std::string ArY::repr<T>::to_string() {
+  int statusCode;
+  std::unique_ptr<char, void (*)(void *)> repr{
+      abi::__cxa_demangle(typeid(T).name(), 0, 0, &statusCode), std::free};
+  if (statusCode)
+    return typeid(T).name();
+  return repr.get();
+}
