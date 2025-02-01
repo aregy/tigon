@@ -16,10 +16,13 @@ func NewUnionFind(n int) *UnionFind {
 	return uf
 }
 func (uf *UnionFind) Find(x int) int {
-	if fx := uf.parent[x-1]; fx != x {
-		uf.parent[x-1] = uf.parent[fx-1]
+	for true { 
+		if uf.parent[x - 1] == x {
+		    break
+		}
+		x = uf.parent[x - 1]
 	}
-	return uf.parent[x-1]
+	return x
 }
 
 func (uf *UnionFind) Union(x, y int) bool {
@@ -28,7 +31,7 @@ func (uf *UnionFind) Union(x, y int) bool {
 		return false
 	}
 	m := max(fx, fy)
-	uf.parent[fx], uf.parent[fy] = m, m // too cute, too much brevity :(
+	uf.parent[fx - 1], uf.parent[fy - 1] = m, m 
 	return true
 }
 
@@ -43,6 +46,7 @@ func (uf *UnionFind) GetCycle(singly_connected_tree [][]int) []int {
 
 func main() {
 	testcases := [][][]int{{{1, 2}, {1, 3}, {2, 3}}}
+	testcases = append(testcases, [][]int{{1,2},{2,3},{3,4},{1,4},{1,5}})
 	for _, tc := range testcases {
 		fmt.Printf("Given: %v\n", tc)
 		uf := NewUnionFind(len(tc))
