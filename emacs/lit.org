@@ -1,0 +1,50 @@
+#+TITLE: Changing the model for incremental improvement
+#+DATE: <2025-02-09 Sun>
+
+** Atomic Habits and its model
+By now, everyone is well aware of the model presented by James Clear in Atomic Habits of compounded improvemnt with repeat iterations. Rinse, repeat, you can git gud with any atomic habit.
+
+** Introducing the Jenga model
+Try Clear's strategy and things start feeling like a definition problem of defining a sufficiently small habit that remain meaningful while being doable. The atomic habit model is normative but the Jenga model is positive for the general case of what a practitioner of Clear's strategy will actually feel for a not-completely understood task.
+
+Ultimately, Clear's strategy remains valuable but the Jenga model puts to words the very next problem space to be tackled.
+
+
+#+begin_src text :tangle cards.tsv
+  Who is the medium	Johnny Richter	Deck3
+  Who is the president       Ricky H!tler aka Orange Donkey	Deck3
+#+end_src
+
+#+begin_src text :tangle cards.tsv
+  What do you mean?	Gigi Hadid indeed	Deck3
+#+end_src
+
+
+#+TITLE: Git tips
+#+DATE: <2025-02-10 Mon>
+
+# Branch actions
+
++ =git checkout <branch_name>=
+
+# Typical workflows
+
+- git fetch origin
+- =git status --short --branch= or =git status -sb=
+- git pull origin
+  - note: this pulls the current branch but you can execute =git pull origin main=
+- ... make changes
+- =git push -u origin main=
+
+#  Git subcommands
+
+* restore
+** src_shell{git restore <file-name>}
+ ≣ src_shell{git checkout -- <file-name>}
+ 
+* rm
+** =git rm --cached <file-name>= means remove from index/{staging area}
+** 
+
+
+
