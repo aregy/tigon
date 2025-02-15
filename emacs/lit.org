@@ -47,4 +47,30 @@ Ultimately, Clear's strategy remains valuable but the Jenga model puts to words 
 ** 
 
 
+#+TITLE: Signed scripts in Powershell
+#+DATE: <2025-02-13 Thu>
 
+#+begin_src powershell :tangle file.ps1
+  # check for available certs
+  gci cert:\currentuser\my -codesigningcert
+
+  # Generate a cert in my store
+  $cert1 = new-selfsignedcertificate -type codesigningcert -keyusage digitalsignature -certstorelocation cert:\currentuser\my -subject "cn=areg_<identifier>"
+
+  # Export
+  $filePath1 = "$env:temp\$($cert1.Thumbprint).cert"
+  export-certificate -Certificate $cert1 -FilePath $filePath1
+
+  # Import to the cert to the root store
+  import-certificate -FilePath $filePath1 -CertStoreLocation cert:\CurrentUser\root
+
+  # Clear up
+  ri $filePath1
+  ri "cert:\CurrentUser\my\${$cert1.Thumbprint}"
+
+  # Sign
+  set-authenticodesignature <file> -TimeStampServer "http://timestamp.digicert.com" -Certificate $cert1
+
+  # Verify
+  get-authenticodesignature <file_path>
+#+end_src

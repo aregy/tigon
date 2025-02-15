@@ -1,0 +1,44 @@
+# Tour of a decently simple init config 
+* [#Note] I exclusively use Emacs outside of the console. No real reason for that, but there are better terminal text editors (neovim being the main one)
+* [#Note] I don't use Emacs-client because I haven't had a need for it lately.
+
+* Correcting eye sores
+
+** Strongly held personal preference:
+#+begin_src elisp :tangle config.el
+(menu-bar-showhide-tool-bar-menu-customize-disable)
+(menu-bar--visual-line-mode-enable) 
+#+end_src
+
+** Correcting for issue-of-the-day in my OS lineup
+*** NOTE: Darwin somehow has not manifested this Linux issue I encounter when mistyping C-z while using WSL Emacs
+#+begin_src elisp :tangle config.el
+  (if (eq system-type 'windows-nt)
+      (setq w32-use-visible-system-caret nil)) ;; ay caramba https://stackoverflow.com/a/47447326/11849530
+  (if (eq system-type 'gnu/linux)
+      (global-unset-key (kbd "C-z")))
+  (set-face-font 'default "JetBrains Mono" nil)
+  (set-face-attribute 'default nil :height 160)
+
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (package-refresh-contents)
+#+end_src
+
+** Everything else
+
+As you can tell, I'm keeping it pretty minimal:
+#+begin_src elisp :tangle config.el
+  (defun ay/pkg-load (pkg)
+    (interactive)
+    (unless (package-install pkg)
+      (package-refresh-contents)
+       (package-installed-p pkg)
+       (message ":::%s installed:::" pkg))
+     (require pkg))
+
+  (ay/pkg-load 'geiser)
+  (ay/pkg-load 'geiser-racket)
+  (ay/pkg-load 'csharp-mode)
+  (ay/pkg-load 'powershell)
+  (ay/pkg-load 'ob-powershell)
+#+end_src
