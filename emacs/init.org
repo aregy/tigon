@@ -1,10 +1,12 @@
-# Tour of a decently simple init config 
-* [#Note] I exclusively use Emacs outside of the console. No real reason for that, but there are better terminal text editors (neovim being the main one)
-* [#Note] I don't use Emacs-client because I haven't had a need for it lately.
+# Tour of a decently simple init config
+
+Note. I exclusively use Emacs outside of the console. No real reason for that, but there are better terminal text editors (neovim being the main one)
+Note II. I don't use Emacs-client because I haven't had a need for it lately.
+Note III. I don't really know how to use org-mode :)
 
 * Correcting eye sores
 
-** Strongly held personal preference:
+** Strongly held personal preferences:
 #+begin_src elisp :tangle config.el
 (menu-bar-showhide-tool-bar-menu-customize-disable)
 (menu-bar--visual-line-mode-enable) 
@@ -19,15 +21,14 @@
       (global-unset-key (kbd "C-z")))
   (set-face-font 'default "JetBrains Mono" nil)
   (set-face-attribute 'default nil :height 160)
-
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-  (package-refresh-contents)
 #+end_src
 
 ** Everything else
 
 As you can tell, I'm keeping it pretty minimal:
 #+begin_src elisp :tangle config.el
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (package-refresh-contents)
   (defun ay/pkg-load (pkg)
     (interactive)
     (unless (package-install pkg)
