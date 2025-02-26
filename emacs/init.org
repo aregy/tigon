@@ -27,6 +27,7 @@ Note III. I don't really know how to use org-mode :)
 
 As you can tell, I'm keeping it pretty minimal:
 #+begin_src elisp :tangle config.el
+  (require 'package)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (package-refresh-contents)
   (defun ay/pkg-load (pkg)
