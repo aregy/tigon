@@ -8,14 +8,14 @@
 
 (let ([k 0])
   (set! k (for/fold ([s 0])
-    ([i '(1 2 3 4 5)])
-    (+ s i)))
+	      ([i '(1 2 3 4 5)])
+	    (+ s i)))
   (- k 10))
 (p (define k 11)
-       (set! k (for/fold ([s 0])
-		   ([i '(1 2 3 4 5)])
-		 (+ s i)))
-       (- k 10))
+   (set! k (for/fold ([s 0])
+	       ([i '(1 2 3 4 5)])
+	     (+ s i)))
+   (- k 10))
 
 (define-struct s1 (f1 f2) #:prefab)
 (println #s(s1 (#e1.23 "Just a string in f2")))
@@ -57,9 +57,24 @@ k
      (sqr 0+1i)
 
      (define (fn1 lst) (for ((x lst))
-					(displayln x)))
+			 (displayln x)))
      (define (fn1 lst) (for-each displayln lst))
 
      (fn1 '(one two three))
-
-    
+     (define/contract (ay/adder lst)
+       (-> (listof exact-integer?) exact-integer?)
+       (displayln "Adder run...")
+       (for/fold ((acc 0)) ((x lst))
+	 (+ acc x)))
+     (ay/adder '(1 2 3 4 5)) ;; 15
+     
+     (define (ay/dedup lst)
+       (-> (listof exact-integer?) (listof exact-integer?))
+       (define freq (for/fold ((h1 (make-hash)))
+			((x lst))
+		      (hash-set! h1 x (add1 (hash-ref h1 x 0)))
+		      h1))
+       for (((k v) (in-hash freq)))
+       (printf "~ax[~a]\n" v k))
+     (hash-keys freq))
+(ay/dedup '(1 1 1 1 2 3 2 3 4 6))
