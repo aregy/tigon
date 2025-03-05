@@ -20,7 +20,7 @@ Note III. I don't really know how to use org-mode :)
   (if (eq system-type 'gnu/linux)
       (global-unset-key (kbd "C-z")))
   (set-face-font 'default "JetBrains Mono" nil)
-  (set-face-attribute 'default nil :height 160)
+  (set-face-attribute 'default nil :height 120)
 #+end_src
 
 ** Everything else
